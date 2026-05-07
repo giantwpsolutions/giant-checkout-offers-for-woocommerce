@@ -1,0 +1,212 @@
+# Copyright (C) 2026 Giant WP Solutions
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Giant Checkout Offers for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/giant-checkout-offers-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-05-06T07:43:37+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: giant-checkout-offers-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+#: giant-checkout-offers-for-woocommerce.php
+msgid "Giant Checkout Offers for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: giant-checkout-offers-for-woocommerce.php
+msgid "https://www.giantwpsolutions.com/giant-checkout-offers-for-woocommerce/"
+msgstr ""
+
+#. Description of the plugin
+#: giant-checkout-offers-for-woocommerce.php
+msgid "Boost your WooCommerce sales with beautiful checkout offers. Show irresistible order bumps at checkout to increase average order value and revenue."
+msgstr ""
+
+#. Author of the plugin
+#: giant-checkout-offers-for-woocommerce.php
+msgid "Giant WP Solutions"
+msgstr ""
+
+#. Author URI of the plugin
+#: giant-checkout-offers-for-woocommerce.php
+msgid "https://giantwpsolutions.com"
+msgstr ""
+
+#: app/Admin/AdminMenu.php:46
+msgid "Giant Checkout Offers"
+msgstr ""
+
+#: app/Api/Controllers/Settings/AnalyticsData.php:106
+msgid "Deleted Bump"
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:109
+#: app/Api/Controllers/Settings/SettingsData.php:78
+msgid "You do not have permission to access this resource."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:121
+#: app/Api/Controllers/Settings/SettingsData.php:89
+msgid "Cookie nonce is invalid."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:165
+#: app/Api/Controllers/Settings/BumpData.php:268
+#: app/Api/Controllers/Settings/BumpData.php:316
+#: app/Api/Controllers/Settings/BumpData.php:347
+msgid "Bump not found."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:192
+#: app/Api/Controllers/Settings/BumpData.php:257
+#: app/Api/Controllers/Settings/SettingsData.php:135
+msgid "Invalid or empty data provided."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:204
+msgid "Data sanitization failed."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:227
+msgid "Failed to save bump."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:236
+msgid "Bump created successfully."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:287
+msgid "Failed to update bump."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:296
+msgid "Bump updated successfully."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:328
+msgid "Bump deleted successfully."
+msgstr ""
+
+#: app/Api/Controllers/Settings/BumpData.php:361
+msgid "Bump status updated."
+msgstr ""
+
+#: app/Api/Controllers/Settings/SettingsData.php:165
+msgid "Settings saved successfully."
+msgstr ""
+
+#: app/Api/Controllers/Shared/Products_Controller.php:182
+#: app/Frontend/Frontend.php:597
+msgid "Product not found."
+msgstr ""
+
+#: app/Frontend/Frontend.php:375
+msgid "Yes, Add to Order!"
+msgstr ""
+
+#: app/Frontend/Frontend.php:578
+msgid "WooCommerce is not available."
+msgstr ""
+
+#: app/Frontend/Frontend.php:591
+msgid "Invalid product ID."
+msgstr ""
+
+#: app/Frontend/Frontend.php:602
+msgid "This product cannot be purchased."
+msgstr ""
+
+#: app/Frontend/Frontend.php:607
+msgid "Product is out of stock."
+msgstr ""
+
+#: app/Frontend/Frontend.php:657
+msgid "Product added to cart!"
+msgstr ""
+
+#: app/Frontend/Frontend.php:669
+msgid "Failed to add product to cart. Please try again."
+msgstr ""
+
+#. translators: %s: error message
+#: app/Frontend/Frontend.php:675
+#, php-format
+msgid "Error: %s"
+msgstr ""
+
+#. translators: 1: discount amount, 2: discount symbol (% or decimal separator)
+#: app/Frontend/Frontend.php:772
+#, php-format
+msgid "Order Bump: Save %1$s%2$s"
+msgstr ""
+
+#: app/Frontend/templates/social.php:27
+msgid "2,847 bought today"
+msgstr ""
+
+#: app/Frontend/templates/social.php:58
+msgid "\"Best purchase I made!\" - Sarah M."
+msgstr ""
+
+#: app/functions.php:9
+msgid "WooCommerce is deactivated! The \"Giant Checkout Offers for WooCommerce\" plugin requires WooCommerce to function properly. Please reactivate WooCommerce."
+msgstr ""
+
+#: giant-checkout-offers-for-woocommerce.php:69
+msgid "Giant Checkout Offers requires WooCommerce to be installed and active."
+msgstr ""
+
+#: giant-checkout-offers-for-woocommerce.php:70
+msgid "Plugin dependency check"
+msgstr ""
+
+#: dist/assets/main.js:25
+msgid "Add New Bump"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "PRO"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "FREE"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "Preview"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "Customize Style"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "Customize"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "Reset to Default"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "General"
+msgstr ""
+
+#: dist/assets/main.js:61
+msgid "Options"
+msgstr ""
+
+#: dist/assets/main.js:78
+msgid "Settings"
+msgstr ""
+
+#: dist/assets/main.js:78
+msgid "Configure your Smart Order Bump settings."
+msgstr ""

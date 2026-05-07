@@ -1,0 +1,22 @@
+{
+  "name": "giantwpsolutions/giant-checkout-offers-for-woocommerce",
+  "description": "Boost your WooCommerce sales with beautiful checkout offers. Add irresistible order bumps at checkout to increase average order value.",
+  "type": "wordpress-plugin",
+  "license": "GPLv2 or later",
+  "authors": [
+    {
+      "name": "Giant WP Solutions",
+      "email": "info@giantwpsolutions.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "GiantCheckoutOffers\\": "app/"
+    },
+    "files": [
+      "app/functions.php"
+    ]
+  }
+}

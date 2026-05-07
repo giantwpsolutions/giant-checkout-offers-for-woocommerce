@@ -1,0 +1,9 @@
+.git
+.gitignore
+.distignore
+.github
+node_modules
+src
+vite.config.js
+package.json
+package-lock.json
