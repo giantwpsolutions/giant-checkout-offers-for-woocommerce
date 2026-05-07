@@ -3,7 +3,7 @@
  * Plugin Name: Giant Checkout Offers for WooCommerce
  * Plugin URI: https://www.giantwpsolutions.com/giant-checkout-offers-for-woocommerce/
  * Description: Boost your WooCommerce sales with beautiful checkout offers. Show irresistible order bumps at checkout to increase average order value and revenue.
- * Version: 1.0.0
+ * Version: 1.0.2
  * Author: Giant WP Solutions
  * Author URI: https://giantwpsolutions.com
  * License: GPLv2 or later
@@ -32,7 +32,7 @@ require_once __DIR__ . '/app/functions.php';
  */
 final class Giant_Checkout_Offers {
 
-    const version = '1.0.0';
+    const version = '1.0.2';
 
     public function __construct() {
         register_activation_hook( __FILE__, [ $this, 'activate' ] );

@@ -4,7 +4,7 @@ Tags: woocommerce order bump, upsell, checkout offer, cart upsell, increase reve
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 WC requires at least: 3.0.0
 WC tested up to: 10.4.3
 License: GPLv2 or later
@@ -216,6 +216,11 @@ The data is used to generate a product-to-bump recommendation map using AI analy
 8. Pro Analytics dashboard with revenue charts and per-bump stats
 
 == Changelog ==
+
+= 1.0.2 — 07-05-2026 =
+* Added Requires Plugins header for WooCommerce dependency
+* Fixed missing .pot extension on language file
+* Prefixes updated to gcow for WordPress.org compliance
 
 = 1.0.0 — 22-04-2026 =
 * Initial release
