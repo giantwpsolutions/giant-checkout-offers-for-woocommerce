@@ -14,6 +14,7 @@
  * WC requires at least: 3.0.0
  * WC Tested up to: 10.4.3
  * Requires PHP: 7.4
+ * Requires Plugins: woocommerce
  * WooCommerce HPOS support: yes
  * Domain path: /languages
  * @package GiantCheckoutOffersForWooCommerce
