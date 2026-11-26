@@ -22,6 +22,7 @@ const positionLabels = {
   checkout_after_review:   __('After Review', 'giant-checkout-offers-for-woocommerce'),
   cart_before_totals:      __('Cart - Before Totals', 'giant-checkout-offers-for-woocommerce'),
   cart_after_totals:       __('Cart - After Totals', 'giant-checkout-offers-for-woocommerce'),
+  thankyou_page:           __('Thank You Page', 'giant-checkout-offers-for-woocommerce'),
 };
 
 /**

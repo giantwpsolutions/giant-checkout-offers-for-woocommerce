@@ -58,6 +58,31 @@
 			syncVariationForBump($(this).data('bump-id'));
 		});
 
+		// Handle swatch clicks — update hidden select and sync variation
+		$(document).on('click', '.gcow-swatch', function () {
+			var $swatch  = $(this);
+			var bumpId   = $swatch.data('bump-id');
+			var attrKey  = $swatch.data('attr-key');
+			var value    = $swatch.data('value');
+			var label    = $swatch.data('label');
+
+			// Toggle active within this attribute
+			$swatch.closest('.gcow-attribute-selectors')
+			       .find('.gcow-swatch[data-attr-key="' + attrKey + '"]')
+			       .removeClass('gcow-swatch--active');
+			$swatch.addClass('gcow-swatch--active');
+
+			// Show selected label
+			$('.gcow-swatch-label[data-bump-id="' + bumpId + '"][data-attr-key="' + attrKey + '"]')
+				.text(label);
+
+			// Update hidden select → triggers syncVariationForBump via change event
+			$('.gcow-attribute-selectors[data-bump-id="' + bumpId + '"]')
+				.find('.gcow-attr-select[data-attr-key="' + attrKey + '"]')
+				.val(value)
+				.trigger('change');
+		});
+
 		// Handle bump checkbox change
 		$(document).on('change', '.gcow-bump-checkbox', function () {
 			var $checkbox   = $(this);
@@ -155,6 +180,7 @@
 				}, 4000);
 			}
 		}
+
 	});
 
 })(jQuery);

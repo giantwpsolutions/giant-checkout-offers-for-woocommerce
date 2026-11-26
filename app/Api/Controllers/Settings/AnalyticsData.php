@@ -128,9 +128,7 @@ class AnalyticsData extends WP_REST_Controller {
         }
 
         // Sort bump stats by revenue descending
-        usort( $bump_stats, function ( $a, $b ) {
-            return $b['revenue'] <=> $a['revenue'];
-        } );
+        usort( $bump_stats, fn( $a, $b ) => $b['revenue'] <=> $a['revenue'] );
 
         $click_rate = $total_impressions > 0
             ? round( ( $total_clicks / $total_impressions ) * 100, 1 )

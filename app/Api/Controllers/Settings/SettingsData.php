@@ -29,8 +29,11 @@ class SettingsData extends WP_REST_Controller {
      * Default settings.
      */
     private static $defaults = [
-        'selectedTemplate' => 'standard',
-        'templateStyles'   => [],
+        'selectedTemplate'    => 'standard',
+        'templateStyles'      => [],
+        'variationSwatches'   => true,
+        'aiProductSuggestion' => false,
+        'aiApiKeys'           => [ 'openai' => '', 'anthropic' => '', 'gemini' => '' ],
     ];
 
     /**
@@ -110,6 +113,8 @@ class SettingsData extends WP_REST_Controller {
 
         $settings = wp_parse_args( $settings, self::$defaults );
 
+        $settings['aiApiKeys'] = $this->mask_api_keys( $this->get_raw_keys() );
+
         return new WP_REST_Response(
             [
                 'success' => true,
@@ -156,6 +161,28 @@ class SettingsData extends WP_REST_Controller {
             $sanitized['templateStyles'] = $this->sanitize_template_styles( $params['templateStyles'] );
         }
 
+        if ( isset( $params['variationSwatches'] ) ) {
+            $sanitized['variationSwatches'] = (bool) $params['variationSwatches'];
+        }
+
+        if ( isset( $params['aiProductSuggestion'] ) ) {
+            $sanitized['aiProductSuggestion'] = (bool) $params['aiProductSuggestion'];
+        }
+
+        if ( isset( $params['aiApiKeys'] ) && is_array( $params['aiApiKeys'] ) ) {
+            foreach ( [ 'openai', 'anthropic', 'gemini' ] as $provider ) {
+                if ( ! array_key_exists( $provider, $params['aiApiKeys'] ) ) {
+                    continue;
+                }
+                $val = trim( (string) $params['aiApiKeys'][ $provider ] );
+                if ( strpos( $val, '•' ) !== false ) {
+                    continue; // masked preview sent back — ignore
+                }
+                // Store each key in its own option — avoids any array-merge/cache issues.
+                update_option( 'gcow_ai_key_' . $provider, $val );
+            }
+        }
+
         $updated = array_merge( $current, $sanitized );
         update_option( self::OPTION_KEY, $updated );
 
@@ -167,6 +194,64 @@ class SettingsData extends WP_REST_Controller {
             ],
             200
         );
+    }
+
+    /**
+     * Read raw API keys from their dedicated options.
+     *
+     * @return array [ 'openai' => '...', 'anthropic' => '...', 'gemini' => '...' ]
+     */
+    private function get_raw_keys() {
+        return [
+            'openai'    => (string) get_option( 'gcow_ai_key_openai',    '' ),
+            'anthropic' => (string) get_option( 'gcow_ai_key_anthropic', '' ),
+            'gemini'    => (string) get_option( 'gcow_ai_key_gemini',    '' ),
+        ];
+    }
+
+    /**
+     * Transform raw API keys into masked format for the frontend.
+     *
+     * @param array $raw_keys Keyed by provider: [ 'openai' => 'sk-proj-...', ... ]
+     * @return array
+     */
+    private function mask_api_keys( $raw_keys ) {
+        $providers = [ 'openai', 'anthropic', 'gemini' ];
+        $masked    = [];
+
+        foreach ( $providers as $provider ) {
+            $key = $raw_keys[ $provider ] ?? '';
+
+            if ( ! empty( $key ) ) {
+                $masked[ $provider ] = [
+                    'connected' => true,
+                    'preview'   => $this->mask_key( $key ),
+                ];
+            } else {
+                $masked[ $provider ] = [
+                    'connected' => false,
+                    'preview'   => '',
+                ];
+            }
+        }
+
+        return $masked;
+    }
+
+    /**
+     * Mask an API key: show first 6 chars, bullets in middle, last 4 chars.
+     *
+     * @param string $key The raw API key.
+     * @return string
+     */
+    private function mask_key( $key ) {
+        $len = strlen( $key );
+
+        if ( $len <= 10 ) {
+            return str_repeat( '•', $len );
+        }
+
+        return substr( $key, 0, 6 ) . str_repeat( '•', max( 6, $len - 10 ) ) . substr( $key, -4 );
     }
 
     /**
@@ -207,7 +292,7 @@ class SettingsData extends WP_REST_Controller {
 
             foreach ( $number_keys as $key => $range ) {
                 if ( isset( $style_data[ $key ] ) ) {
-                    $val = intval( $style_data[ $key ] );
+                    $val = (int) $style_data[ $key ];
                     $clean[ $key ] = max( $range['min'], min( $range['max'], $val ) );
                 }
             }

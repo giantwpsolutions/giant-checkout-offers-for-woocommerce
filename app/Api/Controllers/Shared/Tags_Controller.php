@@ -70,14 +70,12 @@ class Tags_Controller extends WP_REST_Controller {
             return rest_ensure_response( $tags );
         }
 
-        $data = array_map( function ( $tag ) {
-            return [
-                'id'    => $tag->term_id,
-                'name'  => $tag->name,
-                'slug'  => $tag->slug,
-                'count' => $tag->count,
-            ];
-        }, $tags );
+        $data = array_map( fn( $tag ) => [
+            'id'    => $tag->term_id,
+            'name'  => $tag->name,
+            'slug'  => $tag->slug,
+            'count' => $tag->count,
+        ], $tags );
 
         return rest_ensure_response( $data );
     }

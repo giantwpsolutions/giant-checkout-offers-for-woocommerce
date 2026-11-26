@@ -3,8 +3,8 @@ Contributors: giantwpsolutions, developerhabib
 Tags: upsell, woocommerce, order bump, checkout, cross-sell
 Requires at least: 5.8
 Tested up to: 6.9
-Requires PHP: 7.4
-Stable tag: 1.0.2
+Requires PHP: 8.0
+Stable tag: 1.1.0
 WC requires at least: 3.0.0
 WC tested up to: 10.4.3
 License: GPLv2 or later
@@ -235,6 +235,15 @@ The data is used to generate a product-to-bump recommendation map using AI analy
 8. Pro Analytics dashboard with revenue charts and per-bump conversion stats
 
 == Changelog ==
+
+= 1.1.0 — 26-11-2026 =
+* Fixed analytics REST endpoint not being registered — /gcow/v2/analytics was unreachable
+* Fixed analytics impression and conversion tracking hooks never firing on checkout/cart pages
+* Fixed impression AJAX handler never registered — bump view counts were not being recorded
+* Fixed conversion tracking using post meta API instead of WooCommerce HPOS-compatible order meta API
+* Fixed PHP version mismatch between plugin header and readme — now consistently requires PHP 8.0
+* Removed debug error_log() calls from post-purchase upsell handler
+* Removed redundant Api class instantiation on plugin init
 
 = 1.0.2 — 07-05-2026 =
 * Added Requires Plugins header for WooCommerce dependency

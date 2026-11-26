@@ -4,8 +4,10 @@ namespace GiantCheckoutOffers;
 
 use GiantCheckoutOffers\Traits\SingletonTrait;
 use GiantCheckoutOffers\Admin\AdminMenu;
-use GiantCheckoutOffers\Api\Api;
+use GiantCheckoutOffers\Analytics\Analytics;
 use GiantCheckoutOffers\Frontend\Frontend;
+use GiantCheckoutOffers\Frontend\PostPurchase;
+use GiantCheckoutOffers\Frontend\ProductSuggestion;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -21,8 +23,10 @@ class Init {
     public function __construct() {
         Assets::instance();
         AdminMenu::instance();
-        Api::instance();
+        Analytics::instance();
         Frontend::instance();
+        PostPurchase::instance();
+        ProductSuggestion::instance();
     }
 
 }

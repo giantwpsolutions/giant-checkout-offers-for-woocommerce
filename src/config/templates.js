@@ -14,6 +14,17 @@ import {
   SocialPreview
 } from '../components/templates';
 
+import {
+  StandardIllustration,
+  CompactIllustration,
+  HeroIllustration,
+  RibbonIllustration,
+  SplitIllustration,
+  FloatingIllustration,
+  TimelineIllustration,
+  SocialIllustration
+} from '../components/templates/illustrations';
+
 /**
  * Common style fields — shown for every template.
  */
@@ -78,7 +89,7 @@ export const CART_POSITIONS = ['cart_before_totals', 'cart_after_totals'];
 
 export const templateList = [
   {
-    id: 'standard', name: 'Standard', isPro: false, context: 'both',
+    id: 'standard', name: 'Standard', description: 'Header bar and clear CTA. Works on any store.', isPro: false, context: 'both',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#6b7280',
       priceColor: '#16a34a', buttonColor: '#3b82f6', buttonTextColor: '#374151',
@@ -88,7 +99,7 @@ export const templateList = [
     },
   },
   {
-    id: 'compact', name: 'Compact', isPro: false, context: 'both',
+    id: 'compact', name: 'Compact', description: 'Minimal and space-saving. Great on mobile.', isPro: false, context: 'both',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#9ca3af',
       priceColor: '#111827', buttonColor: '#3b82f6', buttonTextColor: '#ffffff',
@@ -97,7 +108,7 @@ export const templateList = [
     },
   },
   {
-    id: 'social', name: 'Social Proof', isPro: false, context: 'both',
+    id: 'social', name: 'Social', description: 'Testimonial-style header bar for social proof.', isPro: false, context: 'both',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#6b7280',
       priceColor: '#059669', buttonColor: '#10b981', buttonTextColor: '#1f2937',
@@ -106,7 +117,7 @@ export const templateList = [
     },
   },
   {
-    id: 'split', name: 'Split View', isPro: false, context: 'both',
+    id: 'split', name: 'Split', description: 'Two columns with star rating and toggle switch.', isPro: false, context: 'both',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#6b7280',
       priceColor: '#0d9488', buttonColor: '#14b8a6', buttonTextColor: '#ffffff',
@@ -115,7 +126,7 @@ export const templateList = [
     },
   },
   {
-    id: 'hero', name: 'Hero Card', isPro: true, context: 'checkout',
+    id: 'hero', name: 'Hero', description: 'Bold, centered layout for high-value offers.', isPro: true, context: 'checkout',
     defaultStyles: {
       backgroundColor: '#4f46e5', textColor: '#ffffff', descriptionColor: '#c7d2fe',
       priceColor: '#ffffff', buttonColor: '#ffffff', buttonTextColor: '#4f46e5',
@@ -123,7 +134,7 @@ export const templateList = [
     },
   },
   {
-    id: 'ribbon', name: 'Ribbon Banner', isPro: true, context: 'checkout',
+    id: 'ribbon', name: 'Ribbon', description: 'Corner ribbon for limited-time deals and urgency.', isPro: true, context: 'checkout',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#6b7280',
       priceColor: '#111827', buttonColor: '#f59e0b', buttonTextColor: '#ffffff',
@@ -132,7 +143,7 @@ export const templateList = [
     },
   },
   {
-    id: 'floating', name: 'Floating Card', isPro: true, context: 'checkout',
+    id: 'floating', name: 'Floating', description: 'Overlay style with a prominent discount badge.', isPro: true, context: 'checkout',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#6b7280',
       priceColor: '#f43f5e', buttonColor: '#f43f5e', buttonTextColor: '#ffffff',
@@ -141,7 +152,7 @@ export const templateList = [
     },
   },
   {
-    id: 'timeline', name: 'Timeline Offer', isPro: true, context: 'checkout',
+    id: 'timeline', name: 'Timeline', description: 'Builds perceived value step by step before the CTA.', isPro: true, context: 'checkout',
     defaultStyles: {
       backgroundColor: '#ffffff', textColor: '#1f2937', descriptionColor: '#6b7280',
       priceColor: '#7c3aed', buttonColor: '#8b5cf6', buttonTextColor: '#ffffff',
@@ -169,4 +180,15 @@ export const previewComponents = {
   floating: FloatingPreview,
   timeline: TimelinePreview,
   social: SocialPreview
+};
+
+export const illustrationComponents = {
+  standard: StandardIllustration,
+  compact:  CompactIllustration,
+  hero:     HeroIllustration,
+  ribbon:   RibbonIllustration,
+  split:    SplitIllustration,
+  floating: FloatingIllustration,
+  timeline: TimelineIllustration,
+  social:   SocialIllustration,
 };

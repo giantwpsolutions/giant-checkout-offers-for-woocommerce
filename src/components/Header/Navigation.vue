@@ -1,7 +1,9 @@
 <script setup>
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+const proActive = computed(() => !!window.gcowPluginData?.proActive);
 
 const { __ } = wp?.i18n || { __: (t) => t };
 
@@ -59,7 +61,7 @@ const isActive = (path) => {
       </svg>
       {{ item.name }}
       <span
-        v-if="item.isPro"
+        v-if="item.isPro && !proActive"
         class="tw-ml-1 tw-px-1.5 tw-py-0.5 tw-bg-gradient-to-r tw-from-yellow-400 tw-to-orange-500 tw-text-white tw-text-[9px] tw-font-bold tw-rounded tw-uppercase tw-leading-tight tw-shadow-sm"
       >{{ __('PRO', 'giant-checkout-offers-for-woocommerce') }}</span>
     </router-link>

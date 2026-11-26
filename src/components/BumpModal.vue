@@ -23,7 +23,7 @@ const props = defineProps({
 const emit = defineEmits(['update:visible', 'save']);
 
 const activeTab = ref('product');
-const isPro = ref(false); // TODO: connect to actual license check
+const isPro = computed(() => !!window.gcowPluginData?.proActive);
 
 // Form data
 const bumpForm = ref({
@@ -191,9 +191,10 @@ const positionOptions = computed(() => [
   { value: 'checkout_before_payment', label: __('Before Payment Methods', 'giant-checkout-offers-for-woocommerce'), pro: false },
   { value: 'checkout_after_payment',  label: __('After Payment Methods', 'giant-checkout-offers-for-woocommerce'),  pro: true },
   { value: 'checkout_before_review',  label: __('Before Order Review', 'giant-checkout-offers-for-woocommerce'),    pro: true },
-  { value: 'checkout_after_review',   label: __('After Order Review', 'giant-checkout-offers-for-woocommerce'),     pro: true },
+  // { value: 'checkout_after_review', label: __('After Order Review', 'giant-checkout-offers-for-woocommerce'), pro: true }, // temporarily disabled
   { value: 'cart_before_totals',      label: __('Cart Page - Before Totals', 'giant-checkout-offers-for-woocommerce'), pro: true },
   { value: 'cart_after_totals',       label: __('Cart Page - After Totals', 'giant-checkout-offers-for-woocommerce'),  pro: true },
+  { value: 'thankyou_page',           label: __('Thank You Page (Post-Purchase)', 'giant-checkout-offers-for-woocommerce'), pro: false },
 ]);
 
 // Condition options
@@ -229,13 +230,16 @@ const selectedPositionLabel = computed(() => {
 
 const dropdownStyle = computed(() => {
   if (!positionTriggerRef.value) return {};
-  const rect = positionTriggerRef.value.getBoundingClientRect();
+  const rect      = positionTriggerRef.value.getBoundingClientRect();
+  const available = window.innerHeight - rect.bottom - 12;
   return {
-    position: 'fixed',
-    top: `${rect.bottom + 4}px`,
-    left: `${rect.left}px`,
-    width: `${rect.width}px`,
-    zIndex: 9999
+    position:  'fixed',
+    top:       `${rect.bottom + 4}px`,
+    left:      `${rect.left}px`,
+    width:     `${rect.width}px`,
+    zIndex:    9999,
+    maxHeight: `${Math.max(160, available)}px`,
+    overflowY: 'auto',
   };
 });
 
@@ -480,7 +484,7 @@ const saveBump = (status = 'active') => {
                   <div
                     v-if="positionDropdownOpen"
                     :style="dropdownStyle"
-                    class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg tw-shadow-lg tw-overflow-hidden"
+                    class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg tw-shadow-lg"
                   >
                     <div
                       v-for="opt in positionOptions"

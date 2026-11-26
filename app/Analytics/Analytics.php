@@ -35,6 +35,8 @@ class Analytics {
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_analytics_script' ] );
 		add_action( 'wp_footer', [ $this, 'maybe_enqueue_analytics_tracker' ], 5 );
 		add_action( 'woocommerce_thankyou', [ $this, 'track_order_conversions' ], 10, 1 );
+		add_action( 'wp_ajax_gcow_track_impression',        [ 'GiantCheckoutOffers\Analytics\Analytics', 'ajax_track_impression' ] );
+		add_action( 'wp_ajax_nopriv_gcow_track_impression', [ 'GiantCheckoutOffers\Analytics\Analytics', 'ajax_track_impression' ] );
 	}
 
 	/**
@@ -172,8 +174,8 @@ class Analytics {
 			return;
 		}
 
-		// Check if this order has already been tracked
-		$tracked = get_post_meta( $order_id, '_gcow_analytics_tracked', true );
+		// Check if this order has already been tracked (HPOS-compatible)
+		$tracked = $order->get_meta( '_gcow_analytics_tracked' );
 		if ( $tracked ) {
 			return;
 		}
@@ -184,14 +186,15 @@ class Analytics {
 
 			if ( ! empty( $bump_data ) && isset( $bump_data['bump_id'] ) ) {
 				$bump_id = $bump_data['bump_id'];
-				$revenue = floatval( $item->get_total() );
+				$revenue = (float) $item->get_total();
 
 				self::record_conversion( $bump_id, $revenue );
 			}
 		}
 
-		// Mark order as tracked
-		update_post_meta( $order_id, '_gcow_analytics_tracked', true );
+		// Mark order as tracked (HPOS-compatible)
+		$order->update_meta_data( '_gcow_analytics_tracked', true );
+		$order->save();
 	}
 
 	/**
@@ -214,10 +217,10 @@ class Analytics {
 		}
 
 		$analytics[ $bump_id ]['conversions']++;
-		$analytics[ $bump_id ]['revenue'] += floatval( $revenue );
+		$analytics[ $bump_id ]['revenue'] += (float) $revenue;
 		update_option( self::OPTION_KEY, $analytics );
 
-		self::update_daily_stats( 'conversions', floatval( $revenue ) );
+		self::update_daily_stats( 'conversions', (float) $revenue );
 	}
 
 	/**

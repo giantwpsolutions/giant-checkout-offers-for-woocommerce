@@ -22,11 +22,12 @@ class Frontend {
 	 * Constructor.
 	 */
 	public function __construct() {
-		// Checkout positions
-		add_action( 'woocommerce_review_order_before_payment', [ $this, 'display_order_bump' ], 10 );
-		add_action( 'woocommerce_review_order_after_payment',  [ $this, 'display_order_bump' ], 10 );
-		add_action( 'woocommerce_checkout_before_order_review', [ $this, 'display_order_bump' ], 10 );
-		add_action( 'woocommerce_checkout_after_order_review',  [ $this, 'display_order_bump' ], 10 );
+		// Checkout positions — all fire inside #order_review for cross-theme reliability
+		add_action( 'woocommerce_checkout_order_review', fn() => $this->display_bumps_at_position( 'checkout_before_review' ), 5 );
+		// checkout_after_review temporarily disabled
+		// add_action( 'woocommerce_checkout_order_review', fn() => $this->display_bumps_at_position( 'checkout_after_review' ), 25 );
+		add_action( 'woocommerce_review_order_before_payment',  [ $this, 'display_order_bump' ], 10 );
+		add_action( 'woocommerce_review_order_after_payment',   [ $this, 'display_order_bump' ], 10 );
 
 		// Cart positions
 		add_action( 'woocommerce_before_cart_totals', [ $this, 'display_order_bump' ], 10 );
@@ -60,12 +61,11 @@ class Frontend {
 			return;
 		}
 
-		// Enqueue main plugin styles (Tailwind included)
 		wp_enqueue_style(
 			'gcow-frontend',
-			GCOW_PLUGIN_URL . 'dist/assets/main.css',
+			GCOW_PLUGIN_URL . 'assets/css/frontend.css',
 			[],
-			time()
+			GCOW_VERSION
 		);
 
 		// Enqueue frontend JS
@@ -93,25 +93,23 @@ class Frontend {
 	 * @return void
 	 */
 	/**
+	 * Templates that may only appear on the cart page.
+	 */
+	private static $cart_only_templates = [ 'timeline', 'hero' ];
+
+	/**
 	 * Map WooCommerce action hooks to bump position slugs.
+	 * checkout_before_review / checkout_after_review use anonymous callbacks — not in this map.
 	 */
 	private static $hook_to_position = [
-		'woocommerce_review_order_before_payment'  => 'checkout_before_payment',
-		'woocommerce_review_order_after_payment'   => 'checkout_after_payment',
-		'woocommerce_checkout_before_order_review' => 'checkout_before_review',
-		'woocommerce_checkout_after_order_review'  => 'checkout_after_review',
-		'woocommerce_before_cart_totals'           => 'cart_before_totals',
-		'woocommerce_after_cart_totals'            => 'cart_after_totals',
+		'woocommerce_review_order_before_payment' => 'checkout_before_payment',
+		'woocommerce_review_order_after_payment'  => 'checkout_after_payment',
+		'woocommerce_before_cart_totals'          => 'cart_before_totals',
+		'woocommerce_after_cart_totals'           => 'cart_after_totals',
 	];
 
-	public function display_order_bump() {
-		// Determine which position triggered this call
-		$current_hook    = current_filter();
-		$current_position = self::$hook_to_position[ $current_hook ] ?? null;
-
-		// Get active bumps
+	public function display_bumps_at_position( $position ) {
 		$bumps = $this->get_active_bumps();
-
 		if ( empty( $bumps ) ) {
 			return;
 		}
@@ -121,10 +119,15 @@ class Frontend {
 			$gcow_displayed_bumps = [];
 		}
 
+		$cart_positions = [ 'cart_before_totals', 'cart_after_totals' ];
+
 		foreach ( $bumps as $bump ) {
-			// Only render if bump position matches current hook
-			$bump_position = $bump['position'] ?? 'checkout_before_payment';
-			if ( $current_position && $bump_position !== $current_position ) {
+			if ( ( $bump['position'] ?? 'checkout_before_payment' ) !== $position ) {
+				continue;
+			}
+
+			$template = $bump['template'] ?? 'standard';
+			if ( in_array( $template, self::$cart_only_templates, true ) && ! in_array( $position, $cart_positions, true ) ) {
 				continue;
 			}
 
@@ -133,6 +136,15 @@ class Frontend {
 			}
 			$this->render_bump( $bump );
 		}
+	}
+
+	public function display_order_bump() {
+		$current_hook     = current_filter();
+		$current_position = self::$hook_to_position[ $current_hook ] ?? null;
+		if ( ! $current_position ) {
+			return;
+		}
+		$this->display_bumps_at_position( $current_position );
 	}
 
 	/**
@@ -240,7 +252,7 @@ class Frontend {
 
 		// Check cart total
 		if ( $condition === 'cart_total' && isset( $bump['minCartTotal'] ) ) {
-			return $cart->get_subtotal() >= floatval( $bump['minCartTotal'] );
+			return $cart->get_subtotal() >= (float) $bump['minCartTotal'];
 		}
 
 		return true;
@@ -254,7 +266,7 @@ class Frontend {
 	 */
 	private function render_bump( $bump ) {
 		// Get product
-		$product_id = isset( $bump['product'] ) ? intval( $bump['product'] ) : 0;
+		$product_id = isset( $bump['product'] ) ? (int) $bump['product'] : 0;
 		if ( ! $product_id ) {
 			return;
 		}
@@ -269,7 +281,7 @@ class Frontend {
 		$variation_attributes = [];
 		$all_variations       = []; // For "All variations" mode — customer selects
 		$attribute_selectors  = []; // For per-attribute dropdowns in 'all variations' mode
-		$specified_variation  = intval( $bump['variationId'] ?? 0 );
+		$specified_variation  = (int) ( $bump['variationId'] ?? 0 );
 
 		if ( $product->is_type( 'variable' ) ) {
 			$variable_product   = new \WC_Product_Variable( $product_id );
@@ -374,7 +386,7 @@ class Frontend {
 			'description'          => isset( $bump['description'] ) ? $bump['description'] : '',
 			'button_text'          => isset( $bump['buttonText'] ) ? $bump['buttonText'] : __( 'Yes, Add to Order!', 'giant-checkout-offers-for-woocommerce' ),
 			'discount_type'        => isset( $bump['discountType'] ) ? $bump['discountType'] : 'percentage',
-			'discount_value'       => isset( $bump['discountValue'] ) ? floatval( $bump['discountValue'] ) : 0,
+			'discount_value'       => isset( $bump['discountValue'] ) ? (float) $bump['discountValue'] : 0,
 			'variations'           => $all_variations,
 			'attribute_selectors'  => $attribute_selectors,
 			'variations_json'      => wp_json_encode( $all_variations ),
@@ -382,7 +394,7 @@ class Frontend {
 		];
 
 		// Calculate prices
-		$regular_price = floatval( $product->get_regular_price() );
+		$regular_price = (float) $product->get_regular_price();
 
 		// Skip if product has no price
 		if ( $regular_price <= 0 ) {
@@ -410,7 +422,7 @@ class Frontend {
 			$template_file = GCOW_PLUGIN_PATH . 'app/Frontend/templates/standard.php';
 		}
 
-		include_once $template_file;
+		include $template_file;
 	}
 
 	/**
@@ -419,7 +431,7 @@ class Frontend {
 	 * @param string $template_id Template ID.
 	 * @return array
 	 */
-	private function get_template_styles( $template_id ) {
+	public function get_template_styles( $template_id ) {
 		$settings        = get_option( 'gcow_settings', [] );
 		$template_styles = isset( $settings['templateStyles'] ) ? $settings['templateStyles'] : [];
 
@@ -583,8 +595,8 @@ class Frontend {
 			wc_load_cart();
 		}
 
-		$product_id   = isset( $_POST['product_id'] ) ? intval( $_POST['product_id'] ) : 0;
-		$variation_id = isset( $_POST['variation_id'] ) ? intval( $_POST['variation_id'] ) : 0;
+		$product_id   = isset( $_POST['product_id'] ) ? (int) $_POST['product_id'] : 0;
+		$variation_id = isset( $_POST['variation_id'] ) ? (int) $_POST['variation_id'] : 0;
 		$bump_id      = isset( $_POST['bump_id'] ) ? sanitize_text_field( wp_unslash( $_POST['bump_id'] ) ) : '';
 
 		if ( ! $product_id ) {
@@ -616,7 +628,7 @@ class Frontend {
 			$cart_item_data['gcow_bump'] = [
 				'bump_id'        => $bump_id,
 				'discount_type'  => $bump['discountType'] ?? 'percentage',
-				'discount_value' => isset( $bump['discountValue'] ) ? floatval( $bump['discountValue'] ) : 0,
+				'discount_value' => isset( $bump['discountValue'] ) ? (float) $bump['discountValue'] : 0,
 			];
 		}
 
@@ -709,9 +721,9 @@ class Frontend {
 				$bump_data = $cart_item['gcow_bump'];
 				$product   = $cart_item['data'];
 
-				$regular_price    = floatval( $product->get_regular_price() );
+				$regular_price    = (float) $product->get_regular_price();
 				$discount_type    = $bump_data['discount_type'];
-				$discount_value   = floatval( $bump_data['discount_value'] );
+				$discount_value   = (float) $bump_data['discount_value'];
 
 				if ( $discount_type === 'percentage' ) {
 					$discounted_price = $regular_price - ( $regular_price * $discount_value / 100 );
@@ -737,8 +749,8 @@ class Frontend {
 			$bump_data = $cart_item['gcow_bump'];
 			$product   = $cart_item['data'];
 
-			$regular_price    = floatval( $product->get_regular_price() );
-			$discount_value   = floatval( $bump_data['discount_value'] );
+			$regular_price    = (float) $product->get_regular_price();
+			$discount_value   = (float) $bump_data['discount_value'];
 			$discount_type    = $bump_data['discount_type'];
 
 			if ( $discount_type === 'percentage' ) {
@@ -764,7 +776,7 @@ class Frontend {
 	public function add_bump_badge_to_cart_item( $product_name, $cart_item, $cart_item_key ) {
 		if ( isset( $cart_item['gcow_bump'] ) ) {
 			$bump_data      = $cart_item['gcow_bump'];
-			$discount_value = floatval( $bump_data['discount_value'] );
+			$discount_value = (float) $bump_data['discount_value'];
 			$discount_type  = $bump_data['discount_type'];
 
 			$badge_text = sprintf(

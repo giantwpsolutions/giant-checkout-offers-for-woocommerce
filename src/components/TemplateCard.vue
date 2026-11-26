@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue';
 
+const proActive = computed(() => !!window.gcowPluginData?.proActive);
+
 const props = defineProps({
   template: {
     type: Object,
@@ -26,15 +28,15 @@ const isSelected = computed(() => props.template.selected);
   >
     <!-- Header: Name + Toggle -->
     <div class="tw-flex tw-items-center tw-justify-between tw-px-4 tw-py-3 tw-border-b tw-border-gray-100 tw-bg-gray-50/50">
-      <div class="tw-flex tw-items-center tw-gap-2">
-        <h3 class="tw-font-semibold tw-text-gray-900 tw-text-sm tw-m-0">{{ template.name }}</h3>
+      <div class="tw-flex tw-items-center tw-gap-2 tw-min-w-0">
+        <h3 class="tw-font-semibold tw-text-gray-900 tw-text-sm tw-m-0 tw-truncate">{{ template.name }}</h3>
         <span
           v-if="!template.isPro"
-          class="tw-px-1.5 tw-py-0.5 tw-text-[10px] tw-font-bold tw-bg-emerald-100 tw-text-emerald-700 tw-rounded"
+          class="tw-flex-shrink-0 tw-px-1.5 tw-py-0.5 tw-text-[10px] tw-font-bold tw-bg-emerald-100 tw-text-emerald-700 tw-rounded"
         >{{ __('FREE', 'giant-checkout-offers-for-woocommerce') }}</span>
         <span
-          v-else
-          class="tw-px-1.5 tw-py-0.5 tw-text-[10px] tw-font-bold tw-bg-purple-100 tw-text-purple-700 tw-rounded"
+          v-else-if="!proActive"
+          class="tw-flex-shrink-0 tw-px-1.5 tw-py-0.5 tw-text-[10px] tw-font-bold tw-bg-purple-100 tw-text-purple-700 tw-rounded"
         >{{ __('PRO', 'giant-checkout-offers-for-woocommerce') }}</span>
       </div>
 
@@ -61,6 +63,13 @@ const isSelected = computed(() => props.template.selected);
       <slot name="preview">
         <div class="tw-text-gray-400 tw-text-sm">{{ __('Preview', 'giant-checkout-offers-for-woocommerce') }}</div>
       </slot>
+    </div>
+
+    <!-- Description -->
+    <div v-if="$slots.description" class="tw-px-4 tw-pt-2 tw-pb-1 tw-bg-white">
+      <p class="tw-text-xs tw-text-gray-500 tw-m-0 tw-leading-snug">
+        <slot name="description" />
+      </p>
     </div>
 
     <!-- Customize Button -->

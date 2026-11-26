@@ -25,6 +25,16 @@ class AdminMenu {
     public function __construct() {
 
         add_action( 'admin_menu', [ $this, 'gcow_menu' ] );
+        add_action( 'current_screen', [ $this, 'remove_admin_notices' ] );
+    }
+
+    public function remove_admin_notices( $screen ) {
+        if ( $screen->id !== 'woocommerce_page_giant-checkout-offers-for-woocommerce' ) {
+            return;
+        }
+        remove_all_actions( 'admin_notices' );
+        remove_all_actions( 'all_admin_notices' );
+        remove_all_actions( 'user_admin_notices' );
     }
 
     /**

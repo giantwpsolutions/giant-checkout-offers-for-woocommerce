@@ -128,16 +128,14 @@ class Categories_Controller extends WP_REST_Controller {
      * @return array
      */
     private function format_categories_flat( $categories ) {
-        return array_map( function ( $category ) {
-            return [
-                'id'        => $category->term_id,
-                'name'      => $category->name,
-                'slug'      => $category->slug,
-                'parent'    => $category->parent,
-                'count'     => $category->count,
-                'thumbnail' => $this->get_category_thumbnail( $category->term_id ),
-            ];
-        }, $categories );
+        return array_map( fn( $category ) => [
+            'id'        => $category->term_id,
+            'name'      => $category->name,
+            'slug'      => $category->slug,
+            'parent'    => $category->parent,
+            'count'     => $category->count,
+            'thumbnail' => $this->get_category_thumbnail( $category->term_id ),
+        ], $categories );
     }
 
     /**
@@ -146,7 +144,7 @@ class Categories_Controller extends WP_REST_Controller {
      * @param int $category_id
      * @return array|null
      */
-    private function get_category_thumbnail( $category_id ) {
+    private function get_category_thumbnail( int $category_id ) {
         $thumbnail_id = get_term_meta( $category_id, 'thumbnail_id', true );
 
         if ( ! $thumbnail_id ) {

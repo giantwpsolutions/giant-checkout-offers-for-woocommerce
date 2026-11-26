@@ -24,6 +24,7 @@ class BumpDataSanitization {
         'checkout_after_review',
         'cart_before_totals',
         'cart_after_totals',
+        'thankyou_page',
     ];
 
     /**
@@ -137,7 +138,7 @@ class BumpDataSanitization {
         if ( ! is_numeric( $value ) ) {
             return $default;
         }
-        return max( $min, min( $max, floatval( $value ) ) );
+        return max( $min, min( $max, (float) $value ) );
     }
 
     /**

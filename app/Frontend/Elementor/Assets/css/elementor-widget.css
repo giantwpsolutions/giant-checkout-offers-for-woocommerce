@@ -1,0 +1,778 @@
+/**
+ * Giant Checkout Offers — Elementor Widget Styles
+ *
+ * Scoped to .gcow-el-wrap so nothing leaks outside the widget.
+ * Design mirrors the PHP templates in app/Frontend/templates/ exactly.
+ *
+ * @package GiantCheckoutOffers
+ */
+
+/* ── 1. Wrapper ─────────────────────────────────────────────────────────── */
+
+.gcow-el-wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.gcow-el-wrap *,
+.gcow-el-wrap *::before,
+.gcow-el-wrap *::after {
+    box-sizing: border-box;
+}
+
+/* ── 2. Base card ────────────────────────────────────────────────────────── */
+
+.gcow-el-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* ── 3. Reset headings / paragraphs inside the card ─────────────────────── */
+
+.gcow-el-wrap h4,
+.gcow-el-wrap h5,
+.gcow-el-wrap p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+/* ── 4. Product image wrapper ───────────────────────────────────────────── */
+
+.gcow-el-img-wrap {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gcow-el-product-img {
+    display: block !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ── 5. Shared body row ─────────────────────────────────────────────────── */
+
+.gcow-el-body {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    align-items: flex-start;
+}
+
+.gcow-el-info {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ── 6. Title / Description / Price ────────────────────────────────────── */
+
+.gcow-el-title {
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px !important;
+}
+
+.gcow-el-description {
+    color: #6b7280;
+    font-size: 12px;
+    margin-bottom: 6px !important;
+}
+
+.gcow-el-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.gcow-el-price,
+.gcow-el-discounted-price {
+    color: #16a34a;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.gcow-el-regular-price {
+    color: #9ca3af;
+    font-size: 12px;
+    text-decoration: line-through;
+}
+
+/* ── 7. Checkbox ────────────────────────────────────────────────────────── */
+
+.gcow-el-checkbox {
+    -webkit-appearance: checkbox !important;
+    appearance: checkbox !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    cursor: not-allowed;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: static !important;
+    border: revert !important;
+    background-image: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* ── 8. CTA label ───────────────────────────────────────────────────────── */
+
+.gcow-el-cta-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.gcow-el-cta-text {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ── 9. STANDARD template ───────────────────────────────────────────────── */
+
+.gcow-el-standard .gcow-el-card {
+    border: 1px dashed #93c5fd;
+}
+
+.gcow-el-header {
+    background-color: #3b82f6;
+    padding: 8px 16px;
+}
+
+.gcow-el-header-title {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 !important;
+}
+
+.gcow-el-cta-section {
+    padding: 0 12px 12px;
+}
+
+.gcow-el-cta-wrap {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #bfdbfe;
+    background-color: #eff6ff;
+}
+
+.gcow-el-cta-wrap .gcow-el-cta-text {
+    color: #1f2937;
+}
+
+/* ── 10. COMPACT template ───────────────────────────────────────────────── */
+
+.gcow-el-compact .gcow-el-card {
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+}
+
+.gcow-el-compact-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gcow-el-compact-check {
+    flex-shrink: 0;
+}
+
+.gcow-el-compact-img-wrap {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gcow-el-compact-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.gcow-el-compact-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.gcow-el-compact-price-wrap {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.gcow-el-compact-price-wrap .gcow-el-price {
+    color: #111827;
+    display: block;
+}
+
+.gcow-el-save-badge {
+    color: #059669;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ── 11. SOCIAL template ────────────────────────────────────────────────── */
+
+.gcow-el-social .gcow-el-card {
+    border: 1px solid #e5e7eb;
+}
+
+.gcow-el-social-header {
+    padding: 8px 12px;
+    background-color: #10b981;
+}
+
+.gcow-el-social-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    gap: 8px;
+}
+
+.gcow-el-social-avatars {
+    display: flex;
+    margin-right: 2px;
+}
+
+.gcow-el-avatar {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid #ffffff;
+    margin-right: -6px;
+}
+
+.gcow-el-social-count {
+    font-size: 10px;
+    font-weight: 500;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.gcow-el-social-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-left: auto;
+}
+
+.gcow-el-img-wrap--sm {
+    width: 48px;
+    height: 48px;
+}
+
+.gcow-el-social-quote {
+    margin: 0 10px 8px;
+    padding: 8px 10px;
+    background-color: #f9fafb;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.gcow-el-social-quote p {
+    font-size: 11px;
+    color: #4b5563;
+    font-style: italic;
+}
+
+.gcow-el-social-cta {
+    margin: 0 10px 10px;
+    padding: 8px 10px;
+    justify-content: space-between !important;
+    border-radius: 6px;
+    border: 1px solid #a7f3d0;
+    background-color: #ecfdf5;
+}
+
+.gcow-el-social-cta .gcow-el-cta-text {
+    color: #1f2937;
+    font-size: 12px;
+}
+
+/* ── 12. SPLIT template ─────────────────────────────────────────────────── */
+
+.gcow-el-split .gcow-el-card {
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+.gcow-el-split-card {
+    display: flex !important;
+    overflow: hidden;
+}
+
+.gcow-el-split-left {
+    width: 40%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #14b8a6;
+    overflow: hidden;
+}
+
+.gcow-el-split-left .gcow-el-product-img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.gcow-el-split-right {
+    width: 60%;
+    padding: 12px;
+}
+
+.gcow-el-stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 4px;
+    color: #facc15;
+}
+
+.gcow-el-split-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.gcow-el-toggle-wrap {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    display: inline-block !important;
+    cursor: default;
+}
+
+.gcow-el-toggle-input {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
+}
+
+.gcow-el-toggle-track {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #14b8a6;
+    border-radius: 999px;
+    transition: 0.3s;
+}
+
+.gcow-el-toggle-knob {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    top: 3px;
+    right: 4px;
+    transition: 0.3s;
+}
+
+/* ── 13. HERO template ──────────────────────────────────────────────────── */
+
+.gcow-el-hero .gcow-el-card,
+.gcow-el-hero-card {
+    background-color: #4f46e5;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.gcow-el-hero-deco {
+    position: absolute;
+    top: -32px;
+    right: -32px;
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.gcow-el-hero-eyebrow {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.gcow-el-hero-img-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    margin: 8px auto;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gcow-el-hero-title,
+.gcow-el-hero-desc {
+    color: #ffffff;
+}
+
+.gcow-el-hero-desc {
+    color: #c7d2fe;
+    font-size: 12px;
+    margin-bottom: 8px !important;
+}
+
+.gcow-el-hero-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.gcow-el-hero-price-row .gcow-el-discounted-price {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.gcow-el-hero-regular-price {
+    font-size: 12px;
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: #ffffff;
+}
+
+.gcow-el-hero-cta {
+    justify-content: center !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    padding: 10px 16px;
+    color: #ffffff;
+}
+
+.gcow-el-hero-cta .gcow-el-cta-text {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ── 14. RIBBON template ────────────────────────────────────────────────── */
+
+.gcow-el-ribbon .gcow-el-card {
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.gcow-el-ribbon-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+}
+
+.gcow-el-ribbon-flag {
+    position: absolute;
+    transform: rotate(45deg);
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    padding: 2px 0;
+    right: -20px;
+    top: 12px;
+    width: 80px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+}
+
+.gcow-el-ribbon-img-wrap {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fef3c720; /* accent20 fallback */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gcow-el-ribbon-label {
+    color: #d97706;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.gcow-el-ribbon-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.gcow-el-ribbon-cta {
+    display: inline-flex !important;
+    gap: 5px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.gcow-el-ribbon-cta .gcow-el-checkbox {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+}
+
+.gcow-el-ribbon-cta .gcow-el-cta-text {
+    color: #ffffff;
+}
+
+/* ── 15. FLOATING template ──────────────────────────────────────────────── */
+
+.gcow-el-floating {
+    padding-top: 14px;
+}
+
+.gcow-el-floating-badge-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -10px;
+    position: relative;
+    z-index: 1;
+}
+
+.gcow-el-badge {
+    background-color: #f43f5e;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.gcow-el-floating .gcow-el-card {
+    border: 1px solid #f3f4f6;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.gcow-el-floating-img-wrap {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fce7eb20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gcow-el-floating-inline-badge {
+    background-color: #fce7eb;
+    color: #f43f5e;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.gcow-el-floating-cta {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+    background-color: #fef2f2;
+}
+
+.gcow-el-floating-cta .gcow-el-cta-text {
+    color: #1f2937;
+}
+
+/* ── 16. TIMELINE template ──────────────────────────────────────────────── */
+
+.gcow-el-timeline .gcow-el-card {
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gcow-el-timeline-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.gcow-el-timeline-label {
+    color: #8b5cf6;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.gcow-el-timeline-steps {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.gcow-el-timeline-step {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #8b5cf6;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.gcow-el-timeline-step--inactive {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+}
+
+.gcow-el-timeline-line {
+    flex: 1;
+    height: 2px;
+    border-radius: 2px;
+}
+
+.gcow-el-timeline-line--active {
+    background-color: rgba(139, 92, 246, 0.6);
+}
+
+.gcow-el-timeline-line--inactive {
+    background-color: #e5e7eb;
+}
+
+.gcow-el-timeline-product {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    background-color: rgba(139, 92, 246, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gcow-el-timeline-product-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gcow-el-timeline-thumb-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: rgba(139, 92, 246, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.gcow-el-timeline-product-name {
+    font-size: 12px !important;
+}
+
+.gcow-el-timeline-product .gcow-el-discounted-price {
+    color: #7c3aed;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.gcow-el-timeline-cta {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #8b5cf6;
+    justify-content: flex-start !important;
+    gap: 8px;
+}
+
+.gcow-el-timeline-cta .gcow-el-cta-text {
+    color: #ffffff;
+}
+
+/* ── 17. Elementor editor — notice bar ──────────────────────────────────── */
+
+.gcow-el-editor-notice {
+    text-align: center;
+    padding: 6px 10px;
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #92400e;
+    margin-top: 8px;
+}

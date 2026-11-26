@@ -42,7 +42,7 @@ defined( 'ABSPATH' ) || exit;
 				<?php endif; ?>
 			</div>
 			<!-- Info -->
-			<div style="flex: 1;">
+			<div style="flex: 1; min-width: 0;">
 				<h4 style="color: <?php echo esc_attr( $styles['textColor'] ?? '#1f2937' ); ?>; font-size: 13px; font-weight: 700; margin: 0 0 2px;"><?php echo esc_html( $bump_data['title'] ); ?></h4>
 				<?php if ( ! empty( $bump_data['description'] ) ) : ?>
 					<p style="color: <?php echo esc_attr( $styles['descriptionColor'] ?? '#6b7280' ); ?>; font-size: 11px; margin: 0 0 4px;"><?php echo esc_html( $bump_data['description'] ); ?></p>

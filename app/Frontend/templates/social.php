@@ -42,7 +42,7 @@ defined( 'ABSPATH' ) || exit;
 						<svg style="width: 24px; height: 24px; color: <?php echo esc_attr( $styles['buttonColor'] ?? '#10b981' ); ?>80;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
 					<?php endif; ?>
 				</div>
-				<div style="flex: 1;">
+				<div style="flex: 1; min-width: 0;">
 					<h4 style="color: <?php echo esc_attr( $styles['textColor'] ?? '#1f2937' ); ?>; font-size: 13px; font-weight: 700; margin: 0 0 2px;"><?php echo esc_html( $bump_data['title'] ); ?></h4>
 					<?php if ( ! empty( $bump_data['description'] ) ) : ?>
 						<p style="color: <?php echo esc_attr( $styles['descriptionColor'] ?? '#6b7280' ); ?>; font-size: 11px; margin: 0 0 4px;"><?php echo esc_html( $bump_data['description'] ); ?></p>

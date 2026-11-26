@@ -13,12 +13,13 @@ use GiantCheckoutOffers\Api\Controllers\Shared\Categories_Controller;
 use GiantCheckoutOffers\Api\Controllers\Shared\Tags_Controller;
 use GiantCheckoutOffers\Api\Controllers\Settings\BumpData;
 use GiantCheckoutOffers\Api\Controllers\Settings\SettingsData;
+use GiantCheckoutOffers\Api\Controllers\Settings\AnalyticsData;
+use GiantCheckoutOffers\Api\Controllers\AiEngine\AiEngineController;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers all REST API routes for the free plugin.
- * Analytics and AI Engine routes are registered by Giant Checkout Offers Pro.
+ * Registers all REST API routes.
  */
 class Api {
 
@@ -34,5 +35,7 @@ class Api {
 		( new Tags_Controller() )->register_routes();
 		( new BumpData() )->register_routes();
 		( new SettingsData() )->register_routes();
+		( new AnalyticsData() )->register_routes();
+		( new AiEngineController() )->register_routes();
 	}
 }

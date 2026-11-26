@@ -1,17 +1,17 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import TemplateCard from '../components/TemplateCard.vue';
 import TemplateStyleEditor from '../components/TemplateStyleEditor.vue';
 import message from '../utils/message';
 import settingsService from '../services/settingsService';
-import { templateList, previewComponents, getDefaultStyles } from '../config/templates';
+import { templateList, previewComponents, illustrationComponents, getDefaultStyles } from '../config/templates';
 import { useTemplateSettings } from '../composables/useTemplateSettings';
 
 const { __ } = wp?.i18n || { __: (t) => t };
 
 const { activeTemplate, templateStyles, loadSettings, getStylesForTemplate } = useTemplateSettings();
 
-const isPro = ref(false); // Will be fetched from API
+const isPro = computed(() => !!window.gcowPluginData?.proActive);
 
 // Currently editing template ID (null = editor closed)
 const editingTemplateId = ref(null);
@@ -101,7 +101,10 @@ onMounted(() => {
         @customize="openStyleEditor"
       >
         <template #preview>
-          <component :is="previewComponents[template.id]" :styles="getStylesForTemplate(template.id)" />
+          <component :is="illustrationComponents[template.id]" />
+        </template>
+        <template #description>
+          <span>{{ template.description }}</span>
         </template>
       </TemplateCard>
     </div>
